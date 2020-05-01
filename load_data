@@ -1,0 +1,9 @@
+ibm=pd.read_csv(r"C:\Users\Colomban Basset\Documents\Trainings\Python Hackathon\IBM.csv")
+ibm_1=ibm[['Date', 'Open']]
+ibm_2=ibm_1.iloc[23:-2,:]
+ibm_2.set_index('Date', inplace=True)
+fama_french=pd.read_csv(r"C:\Users\Colomban Basset\Documents\Trainings\Python Hackathon\F-F.csv", skiprows=3)
+fama_french.set_index('Date', inplace=True)
+fama_french=fama_french.drop(['RF'], axis=1)
+ibm_2['Log_return']=np.log(ibm_2['Open'])-np.log(ibm_2['Open'].shift(+1))
+ibm_2['Sign_return']=np.where(ibm_2.Log_return>=0,1,0)
